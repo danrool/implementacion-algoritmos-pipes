@@ -54,9 +54,8 @@ TEXT_CLEANING_RE = "@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+"
 
 class ExtractColumnsDoFn(beam.DoFn):
     def process(self, element):
-        record = json.loads(element)  # Decodifica cada línea de JSON a un diccionario
+        record = json.loads(element)
         content = record.get("content", "")
-        # Asume que siempre hay al menos un elemento en la lista label y extráelo
         sentiment_label = record.get("annotation", {}).get("label", [None])[0]
         yield content, sentiment_label
 
